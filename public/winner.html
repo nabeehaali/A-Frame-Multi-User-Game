@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Winner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    .button {
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      font-size: 16px;
+      background-color: rgb(22, 22, 22);
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: rgb(10, 10, 10);
+      color: white;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font: 400 15px/1.8 "Lato", sans-serif;
+    }
+    .bkg_img {
+      position: relative;
+      height: 100%;
+      background-image: url("assets/forest_bkg.png"); 
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .button_container {
+      position: relative;
+      left: 0;
+      top: 63%;
+      width: 100%;
+      text-align: center;
+    }
+    a:link, a:visited {
+      color: white;
+      background-color: transparent;
+      text-decoration: none;
+      font-size: small;
+      display:block;
+      text-align: center;
+    }
+    h1 {
+        text-align: center;
+        color: white;
+        position: relative;
+        top: 10%;
+    }
+    </style>
+</head>
+
+<body>
+    
+  <div class="bkg_img">
+    <div class="button_container">
+      <a href='index.html'><button class="button">Return to Game</button></a><br>
+    </div>
+    <h1 text-align="center">You Win!</h1>
+  </div>
+</body>
+
+</html>

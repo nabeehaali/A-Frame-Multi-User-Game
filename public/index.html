@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Winner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    .button {
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      font-size: 16px;
+      background-color: rgb(22, 22, 22);
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: rgb(10, 10, 10);
+      color: white;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font: 400 15px/1.8 "Lato", sans-serif;
+    }
+    .bkg_img {
+      position: relative;
+      height: 100%;
+      background-image: url("assets/forest_bkg.png"); 
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .button_container {
+      position: relative;
+      left: 0;
+      top: 60%;
+      width: 100%;
+      text-align: center;
+    }
+    a:link, a:visited {
+      color: white;
+      background-color: transparent;
+      text-decoration: none;
+      font-size: small;
+      display:block;
+      text-align: center;
+    }
+    h1, h3 {
+        text-align: center;
+        color: white;
+        position: relative;
+        top: 0%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+    </style>
+</head>
+
+<body>
+    
+  <div class="bkg_img">
+    <div class="button_container">
+      <a href='player1.html'><button class="button">Player 1</button></a><br>
+      <a href='player2.html'><button class="button">Player 2</button></a><br>
+    </div>
+    <h1 text-align="center">Side by Side - The Game</h1>
+    <h3 text-align="center">Each player will begin somewhere in the forest. Your job is to
+        work together to collect the scattered rings. When one player has 
+        collected at least 3 rings, the treasure chest will unlock. Then,
+        you will be working against each other to see who reaches the treasure
+        chest first. Enjoy!</h3>
+  </div>
+</body>
+
+</html>

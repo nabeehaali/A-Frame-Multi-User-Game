@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>user click Test</title>
+        <meta charset="utf-8" />
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+    </head>
+
+    <body>
+
+        <a-scene>
+            <a-entity environment="preset: forest"></a-entity>
+
+            <a-entity camera wasd-controls look-controls position="0 1.6 0">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+            </a-entity>
+
+            <a-entity id="keys">
+                <a-entity id="box1" class="button interactive" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" position="0 0.3 0" material="color: red"></a-entity>
+                <a-entity id="box2" class="button interactive" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" position="0 0.3 1" material="color: red"></a-entity>
+                <a-entity id="box3" class="button interactive" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" position="0 0.3 2" material="color: red"></a-entity>
+                <a-entity id="box4" class="button interactive" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" position="0 0.3 3" material="color: red"></a-entity>
+                <a-entity id="box5" class="button interactive" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" position="0 0.3 4" material="color: red"></a-entity>
+            </a-entity>
+
+        </a-scene>
+
+        <!-- this is magic code created when the node server runs -->
+        <!-- putting at teh bottom of body to let body load first before we try to query for elements -->
+        <!-- //VERY HANDY! https://socket.io/docs/v3/emit-cheatsheet/  -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+
+            socket.on('connect', (userData) => {
+                console.log('p1 connected');
+                var numCubes = 0;
+                
+                //put code here so that we know that socket.io has initailized ...
+                document.querySelector('#keys').addEventListener('click', function(){
+                    numCubes++;
+                    if (numCubes == 5){
+                        socket.emit('red');
+                    }
+                });
+                document.querySelector('#box1').addEventListener('click', function(){
+                    socket.emit('removeB1');
+                });
+                document.querySelector('#box2').addEventListener('click', function(){
+                    socket.emit('removeB2');
+                });
+                document.querySelector('#box3').addEventListener('click', function(){
+                    socket.emit('removeB3');
+                });
+                document.querySelector('#box4').addEventListener('click', function(){
+                    socket.emit('removeB4');
+                });
+                document.querySelector('#box5').addEventListener('click', function(){
+                    socket.emit('removeB5');
+                });
+
+                
+            });
+
+            //listen to event from server
+            socket.on('color_change', (data) => {
+                
+                window.location.replace("/winner.html");
+                //score
+                
+            });
+            socket.on('remove1', (data) => {
+                document.querySelector('#box1').setAttribute('visible', false);
+            });
+            socket.on('remove2', (data) => {
+                document.querySelector('#box2').setAttribute('visible', false);
+            });
+            socket.on('remove3', (data) => {
+                document.querySelector('#box3').setAttribute('visible', false);
+            });
+            socket.on('remove4', (data) => {
+                document.querySelector('#box4').setAttribute('visible', false);
+            });
+            socket.on('remove5', (data) => {
+                document.querySelector('#box5').setAttribute('visible', false);
+            });
+        </script>
+    </body>
+</html>

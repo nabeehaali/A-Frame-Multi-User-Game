@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Side by Side - Player 1</title>
+        <meta charset="utf-8" />
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+    </head>
+
+    <body>
+
+        <a-scene>
+
+            <!-- environment -->
+            <a-entity environment="preset: forest; ground: flat;"></a-entity>
+
+            <!-- camera -->
+            <a-entity camera wasd-controls look-controls position="-6 1.6 35">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+                <a-entity id="notification" text="value: Find the Treasure!" position="0.3 0.8 -1" visible="false"></a-entity>
+            </a-entity>
+
+            <!-- keys -->
+            <a-entity id="keys">
+                <a-entity id="key1" class="button interactive" geometry="primitive: torus; radius: 0.25; radiusTubular: 0.05; arc: 360" position="-7 0.5 34" material="color: #c9af00" animation__mouseenter="property:material.opacity; to:0.5; startEvents:mouseenter; dur:50" animation__mouseleave="property:material.opacity; to:1; startEvents:mouseleave; dur:50"></a-entity>
+                <a-entity id="key2" class="button interactive" geometry="primitive: torus; radius: 0.25; radiusTubular: 0.05; arc: 360" position="-2 0.5 41" material="color: #c9af00" animation__mouseenter="property:material.opacity; to:0.5; startEvents:mouseenter; dur:50" animation__mouseleave="property:material.opacity; to:1; startEvents:mouseleave; dur:50"></a-entity>
+                <a-entity id="key3" class="button interactive" geometry="primitive: torus; radius: 0.25; radiusTubular: 0.05; arc: 360" position="0 0.5 37" material="color: #c9af00" animation__mouseenter="property:material.opacity; to:0.5; startEvents:mouseenter; dur:50" animation__mouseleave="property:material.opacity; to:1; startEvents:mouseleave; dur:50"></a-entity>
+                <a-entity id="key4" class="button interactive" geometry="primitive: torus; radius: 0.25; radiusTubular: 0.05; arc: 360" position="6 0.5 40" material="color: #c9af00" animation__mouseenter="property:material.opacity; to:0.5; startEvents:mouseenter; dur:50" animation__mouseleave="property:material.opacity; to:1; startEvents:mouseleave; dur:50"></a-entity>
+                <a-entity id="key5" class="button interactive" geometry="primitive: torus; radius: 0.25; radiusTubular: 0.05; arc: 360" position="9 0.5 44" material="color: #c9af00" animation__mouseenter="property:material.opacity; to:0.5; startEvents:mouseenter; dur:50" animation__mouseleave="property:material.opacity; to:1; startEvents:mouseleave; dur:50"></a-entity>
+            </a-entity>
+
+            <!--Treasure-->
+            <a-entity id="treasure" class="button interactive" position="0 0 35" geometry="primitive:box; width:1; depth:1; height:1;" material="color: #3d2001" visible="false"></a-entity>
+
+        </a-scene>
+
+        <!-- socket.io -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script>
+
+            const socket = io();
+
+            socket.on('connect', (userData) => {
+                console.log('Player 1 connected');
+                var numCubes = 0;
+
+                // events going to server
+                // unlocking treasure if three keys are collected by one player
+                document.querySelector('#keys').addEventListener('click', function(){
+                    numCubes++;
+                    if (numCubes == 3){
+                        socket.emit('unlock-treasure');
+                    }
+                });
+
+                //remove keys that have been collected
+                document.querySelector('#key1').addEventListener('click', function(){
+                    socket.emit('delete-key-1');
+                });
+                document.querySelector('#key2').addEventListener('click', function(){
+                    socket.emit('delete-key-2');
+                });
+                document.querySelector('#key3').addEventListener('click', function(){
+                    socket.emit('delete-key-3');
+                });
+                document.querySelector('#key4').addEventListener('click', function(){
+                    socket.emit('delete-key-4');
+                });
+                document.querySelector('#key5').addEventListener('click', function(){
+                    socket.emit('delete-key-5');
+                });
+
+                // player who reaches treasure first
+                document.querySelector('#treasure').addEventListener('click', function(){
+                    socket.emit('treasure-by-p1');
+                    window.location.replace("/winner.html");
+                });
+                
+            });
+
+            // listen to event from server
+            // unlocking treasure
+            socket.on('show_treasure', (data) => {     
+                document.querySelector('#treasure').setAttribute('visible', true);
+                document.querySelector('#notification').setAttribute('visible', true);
+            });
+
+            // remove keys that have been collected
+            socket.on('remove_key_1', (data) => {
+                document.querySelector('#key1').setAttribute('visible', false);
+            });
+            socket.on('remove_key_2', (data) => {
+                document.querySelector('#key2').setAttribute('visible', false);
+            });
+            socket.on('remove_key_3', (data) => {
+                document.querySelector('#key3').setAttribute('visible', false);
+            });
+            socket.on('remove_key_4', (data) => {
+                document.querySelector('#key4').setAttribute('visible', false);
+            });
+            socket.on('remove_key_5', (data) => {
+                document.querySelector('#key5').setAttribute('visible', false);
+            });
+
+            // listening if player 2 wins
+            socket.on('p2_win', (data) => {
+                window.location.replace("/loser.html");
+            });
+        </script>
+    </body>
+</html>
