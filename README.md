@@ -4,6 +4,9 @@
  ## Overview
  For this project, I wanted to create something that _.
  
+ <img width="400" alt="Collaborative" src="https://github.com/nabeehaali/A-Frame-Multi-User-Game/blob/main/Collaborative.PNG"> 
+ <img width="400" alt="Competitive" src="https://github.com/nabeehaali/A-Frame-Multi-User-Game/blob/main/Competitive.PNG">
+ 
  ### Instructions for use:
 
 1. Download this project.
