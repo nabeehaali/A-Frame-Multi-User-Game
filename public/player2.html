@@ -18,7 +18,8 @@
             <!-- camera -->
             <a-entity camera wasd-controls look-controls position="6 1.6 33">
                 <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
-                <a-entity id="notification" text="value: Find the Treasure!" position="0.3 0.8 -1" visible="false"></a-entity>
+                <a-entity id="notification1" text="value: Collaborate: Collect the Rings!" position="0.25 0.8 -1" visible="true"></a-entity>
+                <a-entity id="notification2" text="value: Compete: Find the Treasure!" position="0.25 0.8 -1" visible="false"></a-entity>
             </a-entity>
 
             <a-entity id="keys">
@@ -83,7 +84,8 @@
             // unlocking treasure
             socket.on('show_treasure', (data) => {     
                 document.querySelector('#treasure').setAttribute('visible', true);
-                document.querySelector('#notification').setAttribute('visible', true);
+                document.querySelector('#notification1').setAttribute('visible', false);
+                document.querySelector('#notification2').setAttribute('visible', true);
             });
 
             // remove keys that have been collected
