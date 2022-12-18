@@ -1,5 +1,5 @@
-# A-Frame-Multi-User-Game
- This is a virtual reality game combining competitive and collaborative interactions within one environment, made using A-Frame and websockets!  :smile:
+# :running_man::running_woman: A-Frame-Multi-User-Game
+ This is a virtual reality game combining competitive and collaborative interactions within one environment, made using A-Frame and websockets!
  
  ## Overview
 For this project, I created a virtual reality game where two people work together to collect rings that
